@@ -19,9 +19,9 @@ def echo_all(message):
 				nombre_video = "youtube-dl -e "+ link_video
 				result = subprocess.check_output(nombre_video, shell=True)
 				bot.send_message(message.chat.id, "Dame unos segundos mientras bajo tu video... "+result)
-				os.system("youtube-dl -o test"+str(message.date)+".mp4 -f mp4 "+link_video)
+				os.system("youtube-dl -o test"+str(message.date)+".mp4 -f 133 "+link_video)
 				bot.send_message(message.chat.id, "Ya lo baje... esta enviandose")
-				video = open('test.mp4', 'rb')
+				video = open('test'+str(message.date)+'.mp4', 'rb')
 				bot.send_video(message.chat.id, video, timeout=9999)
 				video.close()
 				os.remove("test"+str(message.date)+".mp4")
