@@ -19,6 +19,7 @@ def echo_all(message):
 				nombre_video = "youtube-dl -e "+ link_video
 				result = subprocess.check_output(nombre_video, shell=True)
 				bot.send_message(message.chat.id, "Dame unos segundos mientras bajo tu video... "+result)
+				os.system("youtube-dl -f \'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4\' -o test"+str(message.date)+".mp4 "+ link_video)
 				os.system("youtube-dl -o test"+str(message.date)+".mp4 -f 133 "+link_video)
 				bot.send_message(message.chat.id, "Ya lo baje... esta enviandose")
 				video = open('test'+str(message.date)+'.mp4', 'rb')
@@ -46,6 +47,10 @@ def echo_all(message):
 	elif message.text.startswith("/ayuda"):
 		bot.send_message(message.chat.id, "Hola! tengo los siguentes comandos:\n /youtube linkdelvideo\n /datos rut o nombre")
 
+	elif message.text.startswith("/test"):
+		video = open('videoplayback.mp4', 'rb')
+		bot.send_video(message.chat.id, video, timeout=9999)
+		video.close()
 	else:
 		bot.send_message(message.chat.id, "Avispate masturba colibries, el texto \"" + message.text + "\" no existe")
 
